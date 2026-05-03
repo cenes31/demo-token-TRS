@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustToken | Geleceğin Güven Tokenı</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59,130,246,0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3b82f6;
+            padding: 10px 24px;
+            border-radius: 40px;
+            color: #3b82f6;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(59,130,246,0.1);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 100px 0 80px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        /* Cüzdan durumu */
+        .wallet-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 20px;
+            border-radius: 40px;
+            margin-bottom: 32px;
+        }
+
+        .connected-dot {
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px;
+            margin: 80px 0;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .tokenomics-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Roadmap */
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .roadmap-step {
+            text-align: center;
+            padding: 24px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 48px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .roadmap { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">TRUST<span style="color:#3b82f6">TOKEN</span></div>
+            <div class="nav-links">
+                <a href="#">Ana Sayfa</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#whitepaper">Whitepaper</a>
+            </div>
+            <button id="connectWalletBtn" class="btn-primary">🔌 Cüzdan Bağla</button>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div id="walletStatus" class="wallet-status" style="display: none;">
+                <div class="connected-dot"></div>
+                <span id="walletAddress"></span>
+            </div>
+            <h1>Geleceğin Güven Tokenı<br>TrustToken ile Tanışın</h1>
+            <p>44.000.000 TRS arzı ile merkeziyetsiz, güvenli ve şeffaf ekosistem</p>
+            <button id="addTokenBtn" class="btn-outline" style="margin-right: 12px;">➕ MetaMask'e Token Ekle</button>
+            <button id="buyBtn" class="btn-primary">🚀 Projeyi İncele</button>
+        </section>
+
+        <!-- Tokenomics -->
+        <section id="tokenomics">
+            <div class="card">
+                <h3>📊 Token Dağılımı (Tokenomics)</h3>
+                <div class="tokenomics-item">
+                    <span>🔥 Toplam Arz</span>
+                    <span><strong>44.000.000 TRS</strong></span>
+                </div>
+                <div class="tokenomics-item">
+                    <span>🏦 Topluluk & Ödüller</span>
+                    <span>%40 (17.600.000 TRS)</span>
+                </div>
+                <div class="tokenomics-item">
+                    <span>🔒 Ekosistem Geliştirme</span>
+                    <span>%25 (11.000.000 TRS)</span>
+                </div>
+                <div class="tokenomics-item">
+                    <span>👥 Satış & Likidite</span>
+                    <span>%20 (8.800.000 TRS)</span>
+                </div>
+                <div class="tokenomics-item">
+                    <span>👨‍💻 Ekip & Danışmanlar</span>
+                    <span>%15 (6.600.000 TRS) - 12 ay kilitli</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Token Info Card -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>🪙 Token Bilgileri</h3>
+                <div class="tokenomics-item">
+                    <span>Token Adı</span>
+                    <span>TrustToken</span>
+                </div>
+                <div class="tokenomics-item">
+                    <span>Sembol</span>
+                    <span>TRS</span>
+                </div>
+                <div class="tokenomics-item">
+                    <span>Ağ</span>
+                    <span>Ethereum Sepolia</span>
+                </div>
+                <div class="tokenomics-item">
+                    <span>Ondalık</span>
+                    <span>18</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>🔒 Neden TrustToken?</h3>
+                <p>✓ %100 şeffaf kontrat</p>
+                <p>✓ Likidite kilitli</p>
+                <p>✓ Topluluk tarafından yönetilen</p>
+                <p>✓ Düşük gas ücretleri</p>
+            </div>
+        </div>
+
+        <!-- Roadmap -->
+        <section id="roadmap">
+            <h2 style="text-align: center; margin-bottom: 40px;">🗺️ Yol Haritası</h2>
+            <div class="roadmap">
+                <div class="roadmap-step">
+                    <div class="step-number">1</div>
+                    <h4>Q1 2025</h4>
+                    <p>Token lansmanı + Website</p>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">2</div>
+                    <h4>Q2 2025</h4>
+                    <p>Topluluk oluşturma + İlk listeleme</p>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">3</div>
+                    <h4>Q3 2025</h4>
+                    <p>Staking platformu</p>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">4</div>
+                    <h4>Q4 2025</h4>
+                    <p>Cross-chain köprüsü</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Whitepaper -->
+        <section id="whitepaper" style="text-align: center; margin: 60px 0;">
+            <div class="card">
+                <h3>📄 Resmi Whitepaper</h3>
+                <p style="margin: 16px 0;">TrustToken'ın teknik detayları, vizyonu ve token ekonomisi hakkında kapsamlı doküman.</p>
+                <button id="whitepaperBtn" class="btn-primary">📥 Whitepaper'ı İndir (PDF)</button>
+                <p style="margin-top: 16px; font-size: 14px; color: #64748b;">Türkçe | 5 sayfa | Güncel sürüm</p>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>© 2025 TrustToken. Teknik kurulum hizmetidir, yatırım tavsiyesi değildir.</p>
+        </div>
+    </div>
+
+    <script>
+        // KONTRAT ADRESİNİ BURAYA YAZ (Remix'ten deploy ettiğin adres)
+        const TOKEN_ADDRESS = "0x78Ce594c69420b319A80B4FDCBC3d8A1CC4a3a37";
+        const TOKEN_SYMBOL = "TRS";
+        const TOKEN_DECIMALS = 18;
+        const TOKEN_IMAGE = "https://placehold.co/400/3b82f6/white?text=TRS";
+
+        let provider, signer, userAddress;
+
+        // Sayfa açılınca cüzdan bağlı mı kontrol et
+        window.addEventListener('load', async () => {
+            if (window.ethereum) {
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                const accounts = await provider.listAccounts();
+                if (accounts.length > 0) {
+                    await connectWallet();
+                }
+            } else {
+                document.getElementById('connectWalletBtn').innerText = "🦊 MetaMask Yükle";
+            }
+        });
+
+        // Cüzdan bağlama
+        document.getElementById('connectWalletBtn').onclick = async () => {
+            if (!window.ethereum) {
+                alert("Lütfen MetaMask extension'ını yükleyin!");
+                window.open("https://metamask.io/download/");
+                return;
+            }
+            await connectWallet();
+        };
+
+        async function connectWallet() {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                userAddress = accounts[0];
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+
+                document.getElementById('connectWalletBtn').innerText = "✅ Cüzdan Bağlı";
+                document.getElementById('connectWalletBtn').style.opacity = "0.7";
+                document.getElementById('walletStatus').style.display = "inline-flex";
+                document.getElementById('walletAddress').innerText = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
+            } catch (error) {
+                console.error(error);
+                alert("Cüzdan bağlanırken hata oluştu.");
+            }
+        }
+
+        // Token ekleme butonu
+        document.getElementById('addTokenBtn').onclick = async () => {
+            if (!window.ethereum || !userAddress) {
+                alert("Önce cüzdanını bağla!");
+                return;
+            }
+
+            try {
+                const wasAdded = await window.ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20',
+                        options: {
+                            address: TOKEN_ADDRESS,
+                            symbol: TOKEN_SYMBOL,
+                            decimals: TOKEN_DECIMALS,
+                            image: TOKEN_IMAGE,
+                        },
+                    },
+                });
+
+                if (wasAdded) {
+                    alert("✅ " + TOKEN_SYMBOL + " token'ı MetaMask'e eklendi!");
+                } else {
+                    alert("❌ Token ekleme reddedildi.");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Token eklenirken hata oluştu. Kontrat adresini kontrol et.");
+            }
+        };
+
+        // Whitepaper butonu (demo PDF)
+        document.getElementById('whitepaperBtn').onclick = () => {
+            alert("📄 Whitepaper hazırlanıyor...\n\nPrompt'u kullanarak ChatGPT'den oluşturup PDF olarak kaydedeceksin.\n\nBu butona tıklayınca gerçek PDF inecek.");
+            // Gerçek implementasyonda: window.open('/whitepaper.pdf')
+        };
+
+        // Buy butonu
+        document.getElementById('buyBtn').onclick = () => {
+            if (!userAddress) {
+                alert("Önce cüzdanını bağla!");
+                return;
+            }
+            alert("🚀 TrustToken ekibine hoş geldin!\n\nTeknik kurulum için iletişime geç: demo@trusttoken.com");
+        };
+    </script>
+
+    <!-- Ethers.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</body>
+</html>
