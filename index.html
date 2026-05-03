@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrustToken | Geleceğin Güven Tokenı</title>
+    <title>TrustToken | The Future of Trust Token</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -165,6 +165,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
@@ -180,7 +181,7 @@
             margin-left: 10px;
         }
 
-        .lang-switch a {
+        .lang-btn {
             color: #94a3b8;
             text-decoration: none;
             font-size: 14px;
@@ -188,14 +189,18 @@
             padding: 4px 10px;
             border-radius: 30px;
             transition: all 0.3s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
         }
 
-        .lang-switch a.active {
+        .lang-btn.active {
             background: #3b82f6;
             color: white;
         }
 
-        .lang-switch a:hover:not(.active) {
+        .lang-btn:hover:not(.active) {
             background: rgba(59,130,246,0.3);
             color: white;
         }
@@ -256,6 +261,12 @@
         .btn-claim:hover {
             transform: scale(1.05);
             box-shadow: 0 0 35px rgba(16,185,129,0.6);
+        }
+
+        .btn-claim:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* Hero Section */
@@ -446,6 +457,8 @@
             z-index: 1000;
             animation: slideIn 0.3s ease;
             display: none;
+            max-width: 400px;
+            font-size: 14px;
         }
 
         @keyframes slideIn {
@@ -494,16 +507,16 @@
     <nav class="navbar">
         <div class="logo">TRUST<span style="color:#3b82f6">TOKEN</span></div>
         <div class="nav-links">
-            <a href="#" data-key="nav-home">Ana Sayfa</a>
-            <a href="#tokenomics" data-key="nav-tokenomics">Tokenomics</a>
-            <a href="#roadmap" data-key="nav-roadmap">Roadmap</a>
-            <a href="#whitepaper" data-key="nav-whitepaper">Whitepaper</a>
+            <a id="navHome">Home</a>
+            <a id="navTokenomics">Tokenomics</a>
+            <a id="navRoadmap">Roadmap</a>
+            <a id="navWhitepaper">Whitepaper</a>
             <div class="lang-switch">
-                <a href="/tr" id="langTr" class="active">TR</a>
-                <a href="/en" id="LangEn">EN</a>
+                <button id="langEnBtn" class="lang-btn active">EN</button>
+                <button id="langTrBtn" class="lang-btn">TR</button>
             </div>
         </div>
-        <button id="connectWalletBtn" class="btn-primary" data-key="connect-wallet">🔌 Cüzdan Bağla</button>
+        <button id="connectWalletBtn" class="btn-primary">🔌 Connect Wallet</button>
     </nav>
 
     <!-- Hero -->
@@ -513,31 +526,31 @@
             <span id="walletAddress"></span>
         </div>
         <h1>
-            <span class="gasp-text" data-key="hero-line1">Geleceğin</span><br>
-            <span class="gradient-text gasp-text" data-key="hero-line2">Güven Tokenı</span>
+            <span id="heroLine1" class="gasp-text">The Future of</span><br>
+            <span id="heroLine2" class="gradient-text gasp-text">Trust Token</span>
         </h1>
-        <p data-key="hero-desc">100 Milyar TRS arzı ile merkeziyetsiz, güvenli ve şeffaf ekosistem.<br>Herkes 1.000.000 TRS claim edebilir!</p>
-        <button id="claimBtn" class="btn-claim gasp-border" data-key="claim-btn">🎁 1.000.000 TRS CLAIM ET</button>
-        <button id="addTokenBtn" class="btn-outline" style="margin-left: 16px;" data-key="add-token">➕ MetaMask'e Ekle</button>
+        <p id="heroDesc">Decentralized, secure and transparent ecosystem with 100 Billion TRS supply.<br>Everyone can claim 1,000,000 TRS!</p>
+        <button id="claimBtn" class="btn-claim gasp-border">🎁 CLAIM 1,000,000 TRS</button>
+        <button id="addTokenBtn" class="btn-outline" style="margin-left: 16px;">➕ Add to MetaMask</button>
     </section>
 
     <!-- Stats -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-number">100B</div>
-            <div class="stat-label" data-key="stat-total-supply">Toplam Arz</div>
+            <div id="statTotalSupplyLabel" class="stat-label">Total Supply</div>
         </div>
         <div class="stat-card">
             <div class="stat-number">1M</div>
-            <div class="stat-label" data-key="stat-claim-amount">Claim Miktarı</div>
+            <div id="statClaimAmountLabel" class="stat-label">Claim Amount</div>
         </div>
         <div class="stat-card">
             <div class="stat-number" id="remainingStats">-</div>
-            <div class="stat-label" data-key="stat-remaining">Kalan Claim</div>
+            <div id="statRemainingLabel" class="stat-label">Remaining Claims</div>
         </div>
         <div class="stat-card">
             <div class="stat-number" id="claimedStats">0</div>
-            <div class="stat-label" data-key="stat-claimers">Claim Yapanlar</div>
+            <div id="statClaimersLabel" class="stat-label">Claimers</div>
         </div>
     </div>
 
@@ -545,67 +558,67 @@
     <div class="features-grid">
         <div class="feature-card">
             <div class="feature-icon">🔒</div>
-            <h3 data-key="feature1-title">Audit'li Kontrat</h3>
-            <p data-key="feature1-desc">Denetlenmiş, güvenli ve şeffaf akıllı kontrat. Rugpull riski yok.</p>
+            <h3 id="feature1Title">Audited Contract</h3>
+            <p id="feature1Desc">Audited, secure and transparent smart contract. No rugpull risk.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🏦</div>
-            <h3 data-key="feature2-title">Likidite Kilidi</h3>
-            <p data-key="feature2-desc">12 ay kilitli likidite ile güvenli ticaret ortamı.</p>
+            <h3 id="feature2Title">Liquidity Lock</h3>
+            <p id="feature2Desc">12-month locked liquidity for safe trading environment.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🗳️</div>
-            <h3 data-key="feature3-title">DAO Yönetimi</h3>
-            <p data-key="feature3-desc">Topluluk kararlarıyla yönetilen merkeziyetsiz ekosistem.</p>
+            <h3 id="feature3Title">DAO Governance</h3>
+            <p id="feature3Desc">Decentralized ecosystem governed by community decisions.</p>
         </div>
     </div>
 
     <!-- Tokenomics -->
     <section id="tokenomics">
-        <h2 style="font-size: 36px; margin-bottom: 32px; text-align: center;" data-key="tokenomics-title">📊 Token Dağılımı</h2>
+        <h2 id="tokenomicsTitle" style="font-size: 36px; margin-bottom: 32px; text-align: center;">📊 Token Distribution</h2>
         <div class="tokenomics-card">
             <div class="tokenomics-item">
-                <span data-key="tokenomics-total">🔥 Toplam Arz</span>
+                <span id="tokenomicsTotal">🔥 Total Supply</span>
                 <span><strong>100.000.000.000 TRS</strong></span>
             </div>
             <div class="tokenomics-item">
-                <span data-key="tokenomics-claim-pool">🎁 Claim Havuzu</span>
-                <span>100.000.000 TRS (100.000 kişiye 1M)</span>
+                <span id="tokenomicsClaimPool">🎁 Claim Pool</span>
+                <span>100.000.000 TRS (100,000 people 1M each)</span>
             </div>
             <div class="tokenomics-item">
-                <span data-key="tokenomics-eco">🔒 Ekosistem & Likidite</span>
+                <span id="tokenomicsEco">🔒 Ecosystem & Liquidity</span>
                 <span>89.900.000.000 TRS</span>
             </div>
             <div class="tokenomics-item">
-                <span data-key="tokenomics-team">👥 Ekip & Danışmanlar</span>
-                <span>10.000.000.000 TRS - 12 ay kilitli</span>
+                <span id="tokenomicsTeam">👥 Team & Advisors</span>
+                <span>10.000.000.000 TRS - 12 months locked</span>
             </div>
         </div>
     </section>
 
     <!-- Roadmap -->
     <section id="roadmap">
-        <h2 style="font-size: 36px; margin-bottom: 32px; text-align: center;" data-key="roadmap-title">🗺️ Yol Haritası</h2>
+        <h2 id="roadmapTitle" style="font-size: 36px; margin-bottom: 32px; text-align: center;">🗺️ Roadmap</h2>
         <div class="roadmap-grid">
             <div class="roadmap-item">
                 <div class="roadmap-number">1</div>
-                <h4 data-key="q1-title">Q1 2025</h4>
-                <p data-key="q1-desc">Token lansmanı + Website + Claim sistemi</p>
+                <h4 id="q1Title">Q1 2025</h4>
+                <p id="q1Desc">Token launch + Website + Claim system</p>
             </div>
             <div class="roadmap-item">
                 <div class="roadmap-number">2</div>
-                <h4 data-key="q2-title">Q2 2025</h4>
-                <p data-key="q2-desc">Topluluk oluşturma + DEX Listing</p>
+                <h4 id="q2Title">Q2 2025</h4>
+                <p id="q2Desc">Community building + DEX Listing</p>
             </div>
             <div class="roadmap-item">
                 <div class="roadmap-number">3</div>
-                <h4 data-key="q3-title">Q3 2025</h4>
-                <p data-key="q3-desc">Staking platformu + DAO oylama</p>
+                <h4 id="q3Title">Q3 2025</h4>
+                <p id="q3Desc">Staking platform + DAO voting</p>
             </div>
             <div class="roadmap-item">
                 <div class="roadmap-number">4</div>
-                <h4 data-key="q4-title">Q4 2025</h4>
-                <p data-key="q4-desc">Cross-chain köprüsü + Mainnet geçiş oylaması</p>
+                <h4 id="q4Title">Q4 2025</h4>
+                <p id="q4Desc">Cross-chain bridge + Mainnet migration vote</p>
             </div>
         </div>
     </section>
@@ -613,15 +626,15 @@
     <!-- Whitepaper -->
     <section id="whitepaper" style="text-align: center; margin: 60px 0;">
         <div class="tokenomics-card" style="padding: 48px;">
-            <h3 style="font-size: 28px; margin-bottom: 16px;" data-key="whitepaper-title">📄 Resmi Whitepaper</h3>
-            <p style="margin: 16px 0; color: #94a3b8;" data-key="whitepaper-desc">TrustToken'ın teknik detayları, token ekonomisi ve yol haritası</p>
-            <button id="whitepaperBtn" class="btn-primary" data-key="whitepaper-btn">📥 PDF İndir (Türkçe - 5 Sayfa)</button>
+            <h3 id="whitepaperTitle" style="font-size: 28px; margin-bottom: 16px;">📄 Official Whitepaper</h3>
+            <p id="whitepaperDesc" style="margin: 16px 0; color: #94a3b8;">TrustToken technical details, token economics and roadmap</p>
+            <button id="whitepaperBtn" class="btn-primary">📥 Download PDF (English - 5 Pages)</button>
         </div>
     </section>
 
     <div class="footer">
-        <p data-key="footer-warning">© 2025 TrustToken | Teknik kurulum hizmetidir, yatırım tavsiyesi değildir.</p>
-        <p style="margin-top: 12px; font-size: 12px;">Kontrat: 0x3a8fb6BAc1F2708b0CdD5e7374FE2fDb83aed895 | Sepolia Testnet</p>
+        <p id="footerWarning">© 2025 TrustToken | Technical setup service, not investment advice.</p>
+        <p style="margin-top: 12px; font-size: 12px;">Contract: 0x3a8fb6BAc1F2708b0CdD5e7374FE2fDb83aed895 | Sepolia Testnet</p>
     </div>
 </div>
 
@@ -629,164 +642,235 @@
 
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 <script>
-    // Dil verileri
+    // ============ TAM ÇİFT DİL DESTEĞİ (İngilizce + Türkçe) ============
+    let currentLang = "en"; // varsayılan: İngilizce
+    
+    // Tüm çeviriler (bildirimler dahil)
     const translations = {
-        tr: {
-            "nav-home": "Ana Sayfa",
-            "nav-tokenomics": "Tokenomics",
-            "nav-roadmap": "Yol Haritası",
-            "nav-whitepaper": "Beyaz Kağıt",
-            "connect-wallet": "🔌 Cüzdan Bağla",
-            "hero-line1": "Geleceğin",
-            "hero-line2": "Güven Tokenı",
-            "hero-desc": "100 Milyar TRS arzı ile merkeziyetsiz, güvenli ve şeffaf ekosistem.<br>Herkes 1.000.000 TRS claim edebilir!",
-            "claim-btn": "🎁 1.000.000 TRS CLAIM ET",
-            "add-token": "➕ MetaMask'e Ekle",
-            "stat-total-supply": "Toplam Arz",
-            "stat-claim-amount": "Claim Miktarı",
-            "stat-remaining": "Kalan Claim",
-            "stat-claimers": "Claim Yapanlar",
-            "feature1-title": "Audit'li Kontrat",
-            "feature1-desc": "Denetlenmiş, güvenli ve şeffaf akıllı kontrat. Rugpull riski yok.",
-            "feature2-title": "Likidite Kilidi",
-            "feature2-desc": "12 ay kilitli likidite ile güvenli ticaret ortamı.",
-            "feature3-title": "DAO Yönetimi",
-            "feature3-desc": "Topluluk kararlarıyla yönetilen merkeziyetsiz ekosistem.",
-            "tokenomics-title": "📊 Token Dağılımı",
-            "tokenomics-total": "🔥 Toplam Arz",
-            "tokenomics-claim-pool": "🎁 Claim Havuzu",
-            "tokenomics-eco": "🔒 Ekosistem & Likidite",
-            "tokenomics-team": "👥 Ekip & Danışmanlar",
-            "roadmap-title": "🗺️ Yol Haritası",
-            "q1-title": "Q1 2025",
-            "q1-desc": "Token lansmanı + Website + Claim sistemi",
-            "q2-title": "Q2 2025",
-            "q2-desc": "Topluluk oluşturma + DEX Listing",
-            "q3-title": "Q3 2025",
-            "q3-desc": "Staking platformu + DAO oylama",
-            "q4-title": "Q4 2025",
-            "q4-desc": "Cross-chain köprüsü + Mainnet geçiş oylaması",
-            "whitepaper-title": "📄 Resmi Whitepaper",
-            "whitepaper-desc": "TrustToken'ın teknik detayları, token ekonomisi ve yol haritası",
-            "whitepaper-btn": "📥 PDF İndir (Türkçe - 5 Sayfa)",
-            "footer-warning": "© 2025 TrustToken | Teknik kurulum hizmetidir, yatırım tavsiyesi değildir."
-        },
         en: {
-            "nav-home": "Home",
-            "nav-tokenomics": "Tokenomics",
-            "nav-roadmap": "Roadmap",
-            "nav-whitepaper": "Whitepaper",
-            "connect-wallet": "🔌 Connect Wallet",
-            "hero-line1": "The Future of",
-            "hero-line2": "Trust Token",
-            "hero-desc": "Decentralized, secure, and transparent ecosystem with 100 Billion TRS supply.<br>Everyone can claim 1,000,000 TRS!",
-            "claim-btn": "🎁 CLAIM 1,000,000 TRS",
-            "add-token": "➕ Add to MetaMask",
-            "stat-total-supply": "Total Supply",
-            "stat-claim-amount": "Claim Amount",
-            "stat-remaining": "Remaining Claims",
-            "stat-claimers": "Claimers",
-            "feature1-title": "Audited Contract",
-            "feature1-desc": "Audited, secure and transparent smart contract. No rugpull risk.",
-            "feature2-title": "Liquidity Lock",
-            "feature2-desc": "12-month locked liquidity for safe trading environment.",
-            "feature3-title": "DAO Governance",
-            "feature3-desc": "Decentralized ecosystem governed by community decisions.",
-            "tokenomics-title": "📊 Token Distribution",
-            "tokenomics-total": "🔥 Total Supply",
-            "tokenomics-claim-pool": "🎁 Claim Pool",
-            "tokenomics-eco": "🔒 Ecosystem & Liquidity",
-            "tokenomics-team": "👥 Team & Advisors",
-            "roadmap-title": "🗺️ Roadmap",
-            "q1-title": "Q1 2025",
-            "q1-desc": "Token launch + Website + Claim system",
-            "q2-title": "Q2 2025",
-            "q2-desc": "Community building + DEX Listing",
-            "q3-title": "Q3 2025",
-            "q3-desc": "Staking platform + DAO voting",
-            "q4-title": "Q4 2025",
-            "q4-desc": "Cross-chain bridge + Mainnet migration vote",
-            "whitepaper-title": "📄 Official Whitepaper",
-            "whitepaper-desc": "TrustToken technical details, token economics and roadmap",
-            "whitepaper-btn": "📥 Download PDF (English - 5 Pages)",
-            "footer-warning": "© 2025 TrustToken | Technical setup service, not investment advice."
+            // Navbar
+            navHome: "Home",
+            navTokenomics: "Tokenomics",
+            navRoadmap: "Roadmap",
+            navWhitepaper: "Whitepaper",
+            connectWallet: "🔌 Connect Wallet",
+            // Hero
+            heroLine1: "The Future of",
+            heroLine2: "Trust Token",
+            heroDesc: "Decentralized, secure and transparent ecosystem with 100 Billion TRS supply.<br>Everyone can claim 1,000,000 TRS!",
+            claimBtn: "🎁 CLAIM 1,000,000 TRS",
+            addToken: "➕ Add to MetaMask",
+            // Stats
+            statTotalSupply: "Total Supply",
+            statClaimAmount: "Claim Amount",
+            statRemaining: "Remaining Claims",
+            statClaimers: "Claimers",
+            // Features
+            feature1Title: "Audited Contract",
+            feature1Desc: "Audited, secure and transparent smart contract. No rugpull risk.",
+            feature2Title: "Liquidity Lock",
+            feature2Desc: "12-month locked liquidity for safe trading environment.",
+            feature3Title: "DAO Governance",
+            feature3Desc: "Decentralized ecosystem governed by community decisions.",
+            // Tokenomics
+            tokenomicsTitle: "📊 Token Distribution",
+            tokenomicsTotal: "🔥 Total Supply",
+            tokenomicsClaimPool: "🎁 Claim Pool",
+            tokenomicsEco: "🔒 Ecosystem & Liquidity",
+            tokenomicsTeam: "👥 Team & Advisors",
+            // Roadmap
+            roadmapTitle: "🗺️ Roadmap",
+            q1Title: "Q1 2025",
+            q1Desc: "Token launch + Website + Claim system",
+            q2Title: "Q2 2025",
+            q2Desc: "Community building + DEX Listing",
+            q3Title: "Q3 2025",
+            q3Desc: "Staking platform + DAO voting",
+            q4Title: "Q4 2025",
+            q4Desc: "Cross-chain bridge + Mainnet migration vote",
+            // Whitepaper
+            whitepaperTitle: "📄 Official Whitepaper",
+            whitepaperDesc: "TrustToken technical details, token economics and roadmap",
+            whitepaperBtn: "📥 Download PDF (English - 5 Pages)",
+            // Footer
+            footerWarning: "© 2025 TrustToken | Technical setup service, not investment advice.",
+            // Alert messages
+            alertInstallMetaMask: "🦊 Please install MetaMask!",
+            alertWalletConnected: "✅ Wallet connected: ",
+            alertConnectError: "❌ Error connecting wallet",
+            alertConnectFirst: "🔌 Please connect your wallet first!",
+            alertAlreadyClaimed: "⚠️ You have already claimed 1,000,000 TRS!",
+            alertClaimStarted: "🔄 Claim in progress... Confirm in MetaMask",
+            alertClaimSent: "⏳ Transaction sent. Waiting for confirmation...",
+            alertClaimSuccess: "🎉 CONGRATULATIONS! 1,000,000 TRS added to your wallet!",
+            alertClaimFailed: "❌ Claim failed: ",
+            alertAddTokenConfirm: "Would you like to add the token to MetaMask?",
+            alertTokenAdded: "✅ TRS token added to MetaMask!",
+            alertAlreadyClaimedTitle: "Already Claimed",
+            alertClaimedButton: "✅ Already Claimed",
+            // Wallet button
+            walletConnectedBtn: "✅ ",
+            // User messages
+            alreadyClaimedStatus: "✅ Already Claimed"
+        },
+        tr: {
+            // Navbar
+            navHome: "Ana Sayfa",
+            navTokenomics: "Token Dağılımı",
+            navRoadmap: "Yol Haritası",
+            navWhitepaper: "Beyaz Kağıt",
+            connectWallet: "🔌 Cüzdan Bağla",
+            // Hero
+            heroLine1: "Geleceğin",
+            heroLine2: "Güven Tokenı",
+            heroDesc: "100 Milyar TRS arzı ile merkeziyetsiz, güvenli ve şeffaf ekosistem.<br>Herkes 1.000.000 TRS claim edebilir!",
+            claimBtn: "🎁 1.000.000 TRS CLAIM ET",
+            addToken: "➕ MetaMask'e Ekle",
+            // Stats
+            statTotalSupply: "Toplam Arz",
+            statClaimAmount: "Claim Miktarı",
+            statRemaining: "Kalan Claim",
+            statClaimers: "Claim Yapanlar",
+            // Features
+            feature1Title: "Audit'li Kontrat",
+            feature1Desc: "Denetlenmiş, güvenli ve şeffaf akıllı kontrat. Rugpull riski yok.",
+            feature2Title: "Likidite Kilidi",
+            feature2Desc: "12 ay kilitli likidite ile güvenli ticaret ortamı.",
+            feature3Title: "DAO Yönetimi",
+            feature3Desc: "Topluluk kararlarıyla yönetilen merkeziyetsiz ekosistem.",
+            // Tokenomics
+            tokenomicsTitle: "📊 Token Dağılımı",
+            tokenomicsTotal: "🔥 Toplam Arz",
+            tokenomicsClaimPool: "🎁 Claim Havuzu",
+            tokenomicsEco: "🔒 Ekosistem & Likidite",
+            tokenomicsTeam: "👥 Ekip & Danışmanlar",
+            // Roadmap
+            roadmapTitle: "🗺️ Yol Haritası",
+            q1Title: "Q1 2025",
+            q1Desc: "Token lansmanı + Website + Claim sistemi",
+            q2Title: "Q2 2025",
+            q2Desc: "Topluluk oluşturma + DEX Listing",
+            q3Title: "Q3 2025",
+            q3Desc: "Staking platformu + DAO oylama",
+            q4Title: "Q4 2025",
+            q4Desc: "Cross-chain köprüsü + Mainnet geçiş oylaması",
+            // Whitepaper
+            whitepaperTitle: "📄 Resmi Whitepaper",
+            whitepaperDesc: "TrustToken'ın teknik detayları, token ekonomisi ve yol haritası",
+            whitepaperBtn: "📥 PDF İndir (Türkçe - 5 Sayfa)",
+            // Footer
+            footerWarning: "© 2025 TrustToken | Teknik kurulum hizmetidir, yatırım tavsiyesi değildir.",
+            // Alert messages
+            alertInstallMetaMask: "🦊 Lütfen MetaMask yükleyin!",
+            alertWalletConnected: "✅ Cüzdan bağlandı: ",
+            alertConnectError: "❌ Cüzdan bağlanırken hata oluştu",
+            alertConnectFirst: "🔌 Önce cüzdanınızı bağlayın!",
+            alertAlreadyClaimed: "⚠️ Zaten 1.000.000 TRS claim ettiniz!",
+            alertClaimStarted: "🔄 Claim işlemi başlatılıyor... MetaMask'i onaylayın",
+            alertClaimSent: "⏳ İşlem gönderildi. Onay bekleniyor...",
+            alertClaimSuccess: "🎉 TEBRİKLER! 1.000.000 TRS cüzdanınıza eklendi!",
+            alertClaimFailed: "❌ Claim başarısız: ",
+            alertAddTokenConfirm: "Tokenı MetaMask'inize eklemek ister misiniz?",
+            alertTokenAdded: "✅ TRS token MetaMask'inize eklendi!",
+            alertAlreadyClaimedTitle: "Zaten Claim Edildi",
+            alertClaimedButton: "✅ Zaten Claim Ettiniz",
+            // Wallet button
+            walletConnectedBtn: "✅ ",
+            // User messages
+            alreadyClaimedStatus: "✅ Zaten Claim Ettiniz"
         }
     };
-
-    let currentLang = "en"; // varsayılan İngilizce
     
-    // URL'den dil algılama (/tr -> Türkçe, /en -> İngilizce, / -> İngilizce)
-    function detectLanguageFromURL() {
-        const path = window.location.pathname;
-        if (path === '/tr' || path.startsWith('/tr/')) {
-            return "tr";
-        }
-        // /en veya / veya başka bir şey -> İngilizce
-        return "en";
-    }
-    
+    // Tüm arayüz metinlerini güncelleyen fonksiyon
     function applyLanguage(lang) {
         currentLang = lang;
-        // Aktif dili güncelle
-        document.getElementById('langTr').classList.toggle('active', lang === 'tr');
-        document.getElementById('LangEn').classList.toggle('active', lang === 'en');
+        const t = translations[lang];
         
-        // Tüm data-key etiketlerini güncelle
-        document.querySelectorAll('[data-key]').forEach(el => {
-            const key = el.getAttribute('data-key');
-            if (translations[lang] && translations[lang][key]) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = translations[lang][key];
-                } else {
-                    el.innerHTML = translations[lang][key];
-                }
-            }
-        });
+        // Navbar
+        document.getElementById('navHome').innerText = t.navHome;
+        document.getElementById('navTokenomics').innerText = t.navTokenomics;
+        document.getElementById('navRoadmap').innerText = t.navRoadmap;
+        document.getElementById('navWhitepaper').innerText = t.navWhitepaper;
+        document.getElementById('connectWalletBtn').innerHTML = t.connectWallet;
         
-        // PDF butonunun içeriğini özel olarak güncelle
-        const pdfBtn = document.getElementById('whitepaperBtn');
-        if (pdfBtn && translations[lang]["whitepaper-btn"]) {
-            pdfBtn.innerHTML = translations[lang]["whitepaper-btn"];
+        // Hero
+        document.getElementById('heroLine1').innerHTML = t.heroLine1;
+        document.getElementById('heroLine2').innerHTML = t.heroLine2;
+        document.getElementById('heroDesc').innerHTML = t.heroDesc;
+        document.getElementById('claimBtn').innerHTML = t.claimBtn;
+        document.getElementById('addTokenBtn').innerHTML = t.addToken;
+        
+        // Stats
+        document.getElementById('statTotalSupplyLabel').innerText = t.statTotalSupply;
+        document.getElementById('statClaimAmountLabel').innerText = t.statClaimAmount;
+        document.getElementById('statRemainingLabel').innerText = t.statRemaining;
+        document.getElementById('statClaimersLabel').innerText = t.statClaimers;
+        
+        // Features
+        document.getElementById('feature1Title').innerText = t.feature1Title;
+        document.getElementById('feature1Desc').innerText = t.feature1Desc;
+        document.getElementById('feature2Title').innerText = t.feature2Title;
+        document.getElementById('feature2Desc').innerText = t.feature2Desc;
+        document.getElementById('feature3Title').innerText = t.feature3Title;
+        document.getElementById('feature3Desc').innerText = t.feature3Desc;
+        
+        // Tokenomics
+        document.getElementById('tokenomicsTitle').innerHTML = t.tokenomicsTitle;
+        document.getElementById('tokenomicsTotal').innerHTML = t.tokenomicsTotal;
+        document.getElementById('tokenomicsClaimPool').innerHTML = t.tokenomicsClaimPool;
+        document.getElementById('tokenomicsEco').innerHTML = t.tokenomicsEco;
+        document.getElementById('tokenomicsTeam').innerHTML = t.tokenomicsTeam;
+        
+        // Roadmap
+        document.getElementById('roadmapTitle').innerHTML = t.roadmapTitle;
+        document.getElementById('q1Title').innerText = t.q1Title;
+        document.getElementById('q1Desc').innerText = t.q1Desc;
+        document.getElementById('q2Title').innerText = t.q2Title;
+        document.getElementById('q2Desc').innerText = t.q2Desc;
+        document.getElementById('q3Title').innerText = t.q3Title;
+        document.getElementById('q3Desc').innerText = t.q3Desc;
+        document.getElementById('q4Title').innerText = t.q4Title;
+        document.getElementById('q4Desc').innerText = t.q4Desc;
+        
+        // Whitepaper
+        document.getElementById('whitepaperTitle').innerText = t.whitepaperTitle;
+        document.getElementById('whitepaperDesc').innerText = t.whitepaperDesc;
+        document.getElementById('whitepaperBtn').innerHTML = t.whitepaperBtn;
+        
+        // Footer
+        document.getElementById('footerWarning').innerText = t.footerWarning;
+        
+        // Dil butonu aktiflik
+        document.getElementById('langEnBtn').classList.toggle('active', lang === 'en');
+        document.getElementById('langTrBtn').classList.toggle('active', lang === 'tr');
+        
+        // HTML lang attribute
+        document.documentElement.lang = lang === 'tr' ? 'tr' : 'en';
+        
+        // Eğer claim butonu devre dışıysa ve kullanıcı claim yaptıysa metnini güncelle
+        const claimBtn = document.getElementById('claimBtn');
+        if (claimBtn.disabled && userAddress && claimedStatus) {
+            claimBtn.innerHTML = t.alreadyClaimedStatus;
         }
         
-        document.documentElement.lang = lang === 'tr' ? 'tr' : 'en';
+        // Cüzdan butonu metnini güncelle (bağlıysa adres korunur)
+        if (userAddress) {
+            document.getElementById('connectWalletBtn').innerHTML = t.walletConnectedBtn + userAddress.slice(0,6) + "..." + userAddress.slice(-4);
+        }
     }
     
-    // Dil linklerine tıklama olayları (sayfayı yeniden yüklemeden)
-    document.getElementById('langTr').addEventListener('click', (e) => {
-        e.preventDefault();
-        const newPath = '/tr';
-        if (window.location.pathname !== newPath) {
-            window.history.pushState({}, '', newPath);
-            applyLanguage('tr');
-        } else {
-            applyLanguage('tr');
-        }
-    });
+    // Dil butonları
+    document.getElementById('langEnBtn').addEventListener('click', () => applyLanguage('en'));
+    document.getElementById('langTrBtn').addEventListener('click', () => applyLanguage('tr'));
     
-    document.getElementById('LangEn').addEventListener('click', (e) => {
-        e.preventDefault();
-        const newPath = '/en';
-        if (window.location.pathname !== newPath) {
-            window.history.pushState({}, '', newPath);
-            applyLanguage('en');
-        } else {
-            applyLanguage('en');
-        }
-    });
+    // Smooth scroll için
+    document.getElementById('navHome').addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+    document.getElementById('navTokenomics').addEventListener('click', () => document.getElementById('tokenomics').scrollIntoView({behavior: 'smooth'}));
+    document.getElementById('navRoadmap').addEventListener('click', () => document.getElementById('roadmap').scrollIntoView({behavior: 'smooth'}));
+    document.getElementById('navWhitepaper').addEventListener('click', () => document.getElementById('whitepaper').scrollIntoView({behavior: 'smooth'}));
     
-    // Popstate olayında (ileri/geri butonları) dili güncelle
-    window.addEventListener('popstate', () => {
-        const lang = detectLanguageFromURL();
-        applyLanguage(lang);
-    });
-    
-    // KONTRAT BİLGİLERİ
+    // ============ BLOCKCHAIN İŞLEMLERİ ============
     const TOKEN_ADDRESS = "0x3a8fb6BAc1F2708b0CdD5e7374FE2fDb83aed895";
-    const TOKEN_SYMBOL = "TRS";
-    const TOKEN_DECIMALS = 18;
-    const CLAIM_AMOUNT = "1000000";
-    
     const TOKEN_ABI = [
         "function claimTokens() external",
         "function hasClaimed(address) view returns (bool)",
@@ -796,8 +880,24 @@
     ];
 
     let provider, signer, contract, userAddress;
-
-    function showAlert(message, isError = false) {
+    let claimedStatus = false;
+    
+    // Bildirim fonksiyonu (çift dilli)
+    function showAlert(messageKey, isError = false, dynamicText = "") {
+        const alertBox = document.getElementById('alert');
+        let message = translations[currentLang][messageKey] || messageKey;
+        if (dynamicText) {
+            message = message + dynamicText;
+        }
+        alertBox.textContent = message;
+        alertBox.className = isError ? 'alert error' : 'alert';
+        alertBox.style.display = 'block';
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 4000);
+    }
+    
+    function showCustomAlert(message, isError = false) {
         const alertBox = document.getElementById('alert');
         alertBox.textContent = message;
         alertBox.className = isError ? 'alert error' : 'alert';
@@ -806,8 +906,8 @@
             alertBox.style.display = 'none';
         }, 4000);
     }
-
-    // Parallax scroll effect
+    
+    // Parallax scroll
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const layer1 = document.getElementById('layer1');
@@ -817,7 +917,7 @@
         if(layer2) layer2.style.transform = `translateY(${scrolled * 0.1}px)`;
         if(layer3) layer3.style.transform = `translateY(${scrolled * 0.5}px)`;
     });
-
+    
     async function loadContract() {
         if (!window.ethereum || !userAddress) return;
         provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -830,13 +930,13 @@
             document.getElementById('remainingStats').innerText = Math.floor(remaining);
             document.getElementById('claimedStats').innerText = (totalClaimed / 1e18 / 1_000_000).toFixed(0);
         } catch(e) {
-            console.log("Stats yüklenemedi:", e);
+            console.log("Stats error:", e);
         }
     }
-
+    
     async function connectWallet() {
         if (!window.ethereum) {
-            showAlert("🦊 Lütfen MetaMask yükleyin!", true);
+            showCustomAlert(translations[currentLang].alertInstallMetaMask, true);
             window.open("https://metamask.io/download/");
             return;
         }
@@ -848,56 +948,57 @@
             signer = provider.getSigner();
             contract = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer);
             
-            const connectBtn = document.getElementById('connectWalletBtn');
-            connectBtn.innerHTML = "✅ " + userAddress.slice(0,6) + "..." + userAddress.slice(-4);
+            const t = translations[currentLang];
+            document.getElementById('connectWalletBtn').innerHTML = t.walletConnectedBtn + userAddress.slice(0,6) + "..." + userAddress.slice(-4);
             document.getElementById('walletStatus').style.display = "inline-flex";
             document.getElementById('walletAddress').innerText = userAddress.slice(0,6) + "..." + userAddress.slice(-4);
             
             await loadContract();
             
-            const claimed = await contract.hasClaimed(userAddress);
-            if (claimed) {
+            claimedStatus = await contract.hasClaimed(userAddress);
+            if (claimedStatus) {
                 const claimBtn = document.getElementById('claimBtn');
-                claimBtn.innerHTML = currentLang === 'tr' ? "✅ Zaten Claim Ettiniz" : "✅ Already Claimed";
+                claimBtn.innerHTML = t.alreadyClaimedStatus;
                 claimBtn.disabled = true;
-                claimBtn.style.opacity = "0.5";
             }
             
-            showAlert("✅ Cüzdan bağlandı: " + userAddress.slice(0,10) + "...");
+            showCustomAlert(t.alertWalletConnected + userAddress.slice(0,10) + "...");
         } catch (error) {
             console.error(error);
-            showAlert("❌ Cüzdan bağlanırken hata oluştu", true);
+            showCustomAlert(translations[currentLang].alertConnectError, true);
         }
     }
-
+    
     document.getElementById('claimBtn').onclick = async () => {
         if (!window.ethereum || !userAddress) {
-            showAlert(currentLang === 'tr' ? "🔌 Önce cüzdanını bağla!" : "🔌 Connect your wallet first!", true);
+            showCustomAlert(translations[currentLang].alertConnectFirst, true);
             return;
         }
         
+        const t = translations[currentLang];
+        
         try {
-            const claimed = await contract.hasClaimed(userAddress);
-            if (claimed) {
-                showAlert(currentLang === 'tr' ? "⚠️ Zaten 1.000.000 TRS claim ettiniz!" : "⚠️ You have already claimed 1,000,000 TRS!", true);
+            claimedStatus = await contract.hasClaimed(userAddress);
+            if (claimedStatus) {
+                showCustomAlert(t.alertAlreadyClaimed, true);
                 return;
             }
             
-            showAlert(currentLang === 'tr' ? "🔄 Claim işlemi başlatılıyor... MetaMask'i onayla" : "🔄 Claim in progress... Confirm in MetaMask");
+            showCustomAlert(t.alertClaimStarted);
             
             const tx = await contract.claimTokens();
-            showAlert(currentLang === 'tr' ? "⏳ İşlem gönderildi. Onay bekleniyor..." : "⏳ Transaction sent. Waiting for confirmation...");
+            showCustomAlert(t.alertClaimSent);
             
             await tx.wait();
             
-            showAlert(currentLang === 'tr' ? "🎉 TEBRİKLER! 1.000.000 TRS cüzdanına eklendi!" : "🎉 CONGRATULATIONS! 1,000,000 TRS added to your wallet!");
+            showCustomAlert(t.alertClaimSuccess);
             const claimBtn = document.getElementById('claimBtn');
-            claimBtn.innerHTML = currentLang === 'tr' ? "✅ Claim Edildi!" : "✅ Claimed!";
+            claimBtn.innerHTML = t.alreadyClaimedStatus;
             claimBtn.disabled = true;
-            claimBtn.style.opacity = "0.5";
+            claimedStatus = true;
             
             setTimeout(() => {
-                if(confirm(currentLang === 'tr' ? "Tokenı MetaMask'inize eklemek ister misiniz?" : "Would you like to add the token to MetaMask?")) {
+                if(confirm(t.alertAddTokenConfirm)) {
                     addTokenToWallet();
                 }
             }, 1000);
@@ -905,10 +1006,10 @@
             await loadContract();
         } catch (error) {
             console.error(error);
-            showAlert((currentLang === 'tr' ? "❌ Claim başarısız: " : "❌ Claim failed: ") + (error.message || "Unknown error"), true);
+            showCustomAlert(t.alertClaimFailed + (error.message || "Unknown error"), true);
         }
     };
-
+    
     async function addTokenToWallet() {
         if (!window.ethereum) return;
         try {
@@ -924,10 +1025,10 @@
                     }
                 }
             });
-            showAlert(currentLang === 'tr' ? "✅ TRS token MetaMask'e eklendi!" : "✅ TRS token added to MetaMask!");
+            showCustomAlert(translations[currentLang].alertTokenAdded);
         } catch(e) { console.log(e); }
     }
-
+    
     document.getElementById('addTokenBtn').onclick = addTokenToWallet;
     document.getElementById('connectWalletBtn').onclick = connectWallet;
     
@@ -935,10 +1036,9 @@
         window.open('converted-document.pdf', '_blank');
     };
     
-    // Sayfa yüklendiğinde URL'den dil algıla ve uygula
+    // Sayfa yüklendiğinde varsayılan İngilizce
     window.addEventListener('load', async () => {
-        const lang = detectLanguageFromURL();
-        applyLanguage(lang);
+        applyLanguage('en');
         
         if (window.ethereum && window.ethereum.selectedAddress) {
             await connectWallet();
